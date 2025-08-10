@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { LuPlus } from 'react-icons/lu';
 
-import CustomBarChart from '../charts/CustomBarChart';
 import { prepareIncomeBarChartData } from '../../utils/helper';
+import CustomBarChart from '../Charts/CustomBarChart';
 
 const IncomeOverview = ({ transactions, onAddIncome }) => {
   const [chartData, setChartData] = useState([]);
