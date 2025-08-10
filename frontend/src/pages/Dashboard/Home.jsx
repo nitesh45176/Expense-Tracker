@@ -19,7 +19,7 @@ const Home = () => {
   useUserAuth();
 
   const [dashboardData, setDashboardData] = useState(null);
-  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
 
   const fetchDashboardData = async () => {
@@ -38,25 +38,6 @@ const Home = () => {
     fetchDashboardData();
   }, []);
 
-  if (loading) {
-    return (
-      <DashboardLayout activeMenu="Dashboard">
-        <div className="flex justify-center items-center h-full">
-          <p className="text-lg">Loading dashboard...</p>
-        </div>
-      </DashboardLayout>
-    );
-  }
-
-  if (!dashboardData || Object.keys(dashboardData).length === 0) {
-    return (
-      <DashboardLayout activeMenu="Dashboard">
-        <div className="flex justify-center items-center h-full">
-          <p className="text-lg">No data available</p>
-        </div>
-      </DashboardLayout>
-    );
-  }
 
   return (
     <DashboardLayout activeMenu="Dashboard">
