@@ -13,15 +13,7 @@ const Last30DaysExpenses = ({ data }) => {
    
   }, [data]);
 
-  useEffect(() => {
-  if (data.length === 0) {
-    setChartData([
-      { label: "No Data", value: 0 }
-    ]);
-  } else {
-    setChartData(prepareExpenseBarChartData(data));
-  }
-}, [data]);
+ 
 
 
   return (
