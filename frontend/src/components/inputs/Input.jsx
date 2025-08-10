@@ -23,7 +23,7 @@ const Input = ({
     <div>
       {label && <label className="text-[13px] text-slate-800">{label}</label>}
 
-      <div className="input-box">
+      <div className="input-box w-full">
         <input
           name={name}
           type={inputType}

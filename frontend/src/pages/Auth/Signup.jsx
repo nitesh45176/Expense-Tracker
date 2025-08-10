@@ -86,62 +86,86 @@ const SignUp = () => {
 
   return (
     <AuthLayout>
-      <div className="lg:w-[100%] h-auto md:h-full flex flex-col justify-center  mt-10 md:mt-0">
-        <h3 className="text-black font-semibold text-xl">Create an Account</h3>
+      <div className="lg:w-[100%] h-auto md:h-full flex flex-col justify-center  md:mt-0 px-4 sm:px-0 mb-10">
+        <h3 className="text-black font-semibold text-xl mt-40">Create an Account</h3>
         <p className="text-slate-700 text-xs mt-2">
           Join us today by entering your details below
         </p>
 
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleSignup} className="w-full">
           <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-            <Input
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              type="text"
-              placeholder="John"
-              label="Full name"
-            />
-            <Input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              label="Email Address"
-              placeholder="john@example.com"
-              type="text"
-            />
-           <div className="col-span-2">
-  <Input
-    label="Password"
-    type="password"
-    name="password"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-    showToggle={true} // This one can toggle
-  />
-</div>
+          
+          {/* Updated grid layout for better mobile experience */}
+          <div className="flex flex-col gap-4 mt-6">
+            {/* Full Name - Full width on mobile for better usability */}
+            <div className="w-full">
+              <Input
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                type="text"
+                placeholder="Enter your full name"
+                label="Full name"
+                className="w-full min-h-[48px] text-base" // Ensure minimum touch target size
+              />
+            </div>
 
-<div className="col-span-2">
-  <Input
-    label="Confirm Password"
-    type="password"
-    name="confirmPassword"
-    value={confirmPassword}
-    onChange={(e) => setConfirmPassword(e.target.value)}
-    showToggle={false} // This one has NO toggle
-  />
-</div>
+            {/* Email - Full width on mobile */}
+            <div className="w-full">
+              <Input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                label="Email Address"
+                placeholder="john@example.com"
+                type="email"
+                className="w-full min-h-[48px] text-base"
+              />
+            </div>
 
+            {/* Password fields - Full width for better mobile experience */}
+            <div className="w-full">
+              <Input
+                label="Password"
+                type="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                showToggle={true}
+                className="w-full min-h-[48px] text-base"
+                placeholder="Enter your password"
+              />
+            </div>
+
+            <div className="w-full">
+              <Input
+                label="Confirm Password"
+                type="password"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                showToggle={false}
+                className="w-full min-h-[48px] text-base"
+                placeholder="Confirm your password"
+              />
+            </div>
           </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          <button type="submit" className="btn-primary">
+          {error && (
+            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
+              <p className="text-red-600 text-sm">{error}</p>
+            </div>
+          )}
+          
+          <button 
+            type="submit" 
+            className="btn-primary w-full mt-6 min-h-[48px] text-base font-medium"
+          >
             SIGN UP
           </button>
 
-          <p className="text-[13px] text-slate-800 mt-3">
-            Already have an account?
-            <Link className="font-medium text-primary underline" to="/login">
-              login
+          <p className="text-[13px] text-slate-800 mt-3 text-center mb-10">
+            Already have an account?{" "}
+            <Link className="font-medium text-primary underline ml-1" to="/login">
+              Login here
             </Link>
           </p>
         </form>
