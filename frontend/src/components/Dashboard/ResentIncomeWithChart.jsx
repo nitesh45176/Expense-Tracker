@@ -6,31 +6,42 @@ const COLORS = ["#875cf5", "#fa2c37", "#ff6900", "#4F38F6"];
 const ResentIncomeWithChart = ({ data, totalIncome }) => {
   const [chartData, setChartData] = useState([]);
 
-  const prepareChartData = () => {
-    const dataArr = data
-      ?.map((item) => ({
-        name: item?.source,
-        amount: Number(item?.amount) || 0,
-      }))
-      .filter((item) => item.amount > 0);
+  // FIXED: Create proper income chart data preparation function
+  const prepareIncomeChartData = (incomeData = []) => {
+    if (!Array.isArray(incomeData) || incomeData.length === 0) {
+      return [{ name: "No Data", amount: 0 }];
+    }
 
-    setChartData(dataArr);
+    const grouped = {};
+
+    incomeData.forEach(item => {
+      const source = item?.source || "Unknown";
+      const amount = Number(item?.amount) || 0;
+
+      if (grouped[source]) {
+        grouped[source] += amount;
+      } else {
+        grouped[source] = amount;
+      }
+    });
+
+    return Object.entries(grouped).map(([source, amount]) => ({
+      name: source,
+      amount: amount,
+    }));
   };
 
   useEffect(() => {
-  if (data.length === 0) {
-    setChartData([
-      { label: "No Data", value: 0 }
-    ]);
-  } else {
-    setChartData(prepareExpenseBarChartData(data));
-  }
-}, [data]);
-
-
-  useEffect(() => {
     console.log("Income data received:", data);
-    prepareChartData();
+    
+    if (!data || data.length === 0) {
+      setChartData([{ name: "No Data", amount: 0 }]);
+    } else {
+      // FIXED: Use the correct function for income data
+      const preparedData = prepareIncomeChartData(data);
+      console.log("📊 Prepared Income Chart Data:", preparedData);
+      setChartData(preparedData);
+    }
   }, [data]);
 
   return (

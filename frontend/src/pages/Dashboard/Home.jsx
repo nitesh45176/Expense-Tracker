@@ -19,11 +19,13 @@ const Home = () => {
   useUserAuth();
 
   const [dashboardData, setDashboardData] = useState(null);
+  const [loading, setLoading] = useState(true); // ADD THIS LINE - Missing state
 
   const navigate = useNavigate();
 
   const fetchDashboardData = async () => {
     try {
+      setLoading(true); // ADD THIS LINE
       const response = await axiosInstance.get(API_PATHS.DASHBOARD.GET_DATA);
       setDashboardData(response.data || {});
     } catch (error) {
@@ -38,6 +40,16 @@ const Home = () => {
     fetchDashboardData();
   }, []);
 
+  // ADD LOADING STATE
+  if (loading) {
+    return (
+      <DashboardLayout activeMenu="Dashboard">
+        <div className="flex justify-center items-center min-h-screen">
+          <div>Loading Dashboard...</div>
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout activeMenu="Dashboard">
